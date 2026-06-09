@@ -105,58 +105,38 @@ function render(){
   var fu=document.getElementById('footUSD');if(fu)fu.textContent='$'+Math.round(tot).toLocaleString();
   var ti=document.getElementById('totalILS');if(ti)ti.textContent='₪'+Math.round(tot*2.9).toLocaleString();
 }
-var PROXIES=[
-  function(u){return 'https://corsproxy.io/?url='+encodeURIComponent(u);},
-  function(u){return 'https://api.allorigins.win/raw?url='+encodeURIComponent(u);},
-  function(u){return 'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u);}
-];
-function fetchWithFallback(apiUrl,idx){
-  idx=idx||0;
-  if(idx>=PROXIES.length)return Promise.reject(new Error('all proxies failed'));
-  return fetch(PROXIES[idx](apiUrl))
-    .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
-    .catch(function(){return fetchWithFallback(apiUrl,idx+1);});
-}
-function applyQuotes(results){
-  var updated=0;
-  results.forEach(function(q){
-    var h=p.find(function(s){return s.t===q.symbol;});
-    if(!h)return;
-    var state=q.marketState||'REGULAR';
-    var prev=q.regularMarketPreviousClose||h.lp;
-    var cur;
-    if(state==='PRE'&&q.preMarketPrice){cur=q.preMarketPrice;h.mkt='PRE';}
-    else if((state==='POST'||state==='POSTPOST'||state==='CLOSED')&&q.postMarketPrice){cur=q.postMarketPrice;h.mkt='POST';}
-    else{cur=q.regularMarketPrice||h.lp;h.mkt='REGULAR';}
-    h.lp=cur;
-    h.dp=prev&&prev!==cur?((cur-prev)/prev*100):h.dp;
-    h.vi=Math.round(h.lp*h.q*2.9);
-    h.vu=h.q*h.lp;
-    updated++;
-  });
-  return updated;
-}
+var FKEY='ct4scihr01qsnmq0t7jgct4scihr01qsnmq0t7k0';
 function fetchLivePrices(){
   var st=document.getElementById('liveStatus');
   st.textContent='טוען...';st.style.color='#6eb3f7';
-  var symbols=p.map(function(s){return s.t;}).join(',');
-  var apiUrl='https://query1.finance.yahoo.com/v8/finance/quote?symbols='+symbols+'&fields=regularMarketPrice,preMarketPrice,postMarketPrice,regularMarketPreviousClose,marketState';
-  fetchWithFallback(apiUrl)
-    .then(function(data){
-      var results=data&&data.quoteResponse&&data.quoteResponse.result||[];
-      if(!results.length)throw new Error('empty response');
-      var updated=applyQuotes(results);
-      if(!updated)throw new Error('no stocks updated');
+  var calls=p.map(function(s){
+    return fetch('https://finnhub.io/api/v1/quote?symbol='+s.t+'&token='+FKEY)
+      .then(function(r){return r.json();})
+      .then(function(d){return {t:s.t,d:d};});
+  });
+  Promise.all(calls)
+    .then(function(results){
+      var updated=0;
+      results.forEach(function(item){
+        var h=p.find(function(s){return s.t===item.t;});
+        var d=item.d;
+        if(!h||!d||!d.c)return;
+        h.lp=d.c;
+        h.dp=d.pc?((d.c-d.pc)/d.pc*100):h.dp;
+        h.vi=Math.round(h.lp*h.q*2.9);
+        h.vu=h.q*h.lp;
+        h.mkt='REGULAR';
+        updated++;
+      });
+      if(!updated)throw new Error('no data');
       tot=p.reduce(function(s,x){return s+x.vu;},0);
       render();
-      var stateLabel=results[0]&&results[0].marketState||'';
-      var stateHe=stateLabel==='PRE'?'(לפני פתיחה)':stateLabel==='POST'||stateLabel==='POSTPOST'?'(אחרי סגירה)':'';
-      st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL')+' '+stateHe;
+      st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
       st.style.color='#22c55e';
     })
     .catch(function(e){
       console.error('fetchLivePrices:',e.message);
-      st.textContent='שגיאה בטעינה - בדוק חיבור';
+      st.textContent='שגיאה בטעינה';
       st.style.color='#ef4444';
     });
 }
