@@ -109,35 +109,41 @@ function fetchLivePrices(){
   var st=document.getElementById('liveStatus');
   st.textContent='טוען...';st.style.color='#6eb3f7';
   var symbols=p.map(function(s){return s.t;}).join(',');
-  var url='https://corsproxy.io/?url='+encodeURIComponent('https://query1.finance.yahoo.com/v7/finance/spark?symbols='+symbols+'&range=1d&interval=1d');
+  var sparkUrl='https://query1.finance.yahoo.com/v7/finance/spark?symbols='+symbols+'&range=1d&interval=1d';
+  var url='https://corsproxy.io/?url='+encodeURIComponent(sparkUrl);
   fetch(url)
     .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
     .then(function(data){
       var results=data&&data.spark&&data.spark.result||[];
-      if(!results.length)throw new Error('empty');
+      if(!results.length)throw new Error('empty response');
       var updated=0;
       results.forEach(function(item){
-        var meta=item&&item.response&&item.response[0]&&item.response[0].meta;
+        if(!item||!item.response||!item.response[0])return;
+        var meta=item.response[0].meta;
         if(!meta)return;
         var h=p.find(function(s){return s.t===item.symbol;});
         if(!h)return;
         var prev=meta.chartPreviousClose||h.lp;
         var cur=meta.regularMarketPrice||h.lp;
         h.lp=cur;
-        h.dp=prev?((cur-prev)/prev*100):h.dp;
-        h.mkt=meta.currentTradingPeriod&&meta.currentTradingPeriod.post&&Date.now()/1000>meta.currentTradingPeriod.post.start?'POST':meta.currentTradingPeriod&&meta.currentTradingPeriod.pre&&Date.now()/1000<meta.currentTradingPeriod.regular.start?'PRE':'REGULAR';
+        h.dp=prev&&prev!==cur?((cur-prev)/prev*100):h.dp;
+        var now=Date.now()/1000;
+        var periods=meta.currentTradingPeriod||{};
+        if(periods.pre&&now>=periods.pre.start&&now<periods.regular.start){h.mkt='PRE';}
+        else if(periods.post&&now>=periods.post.start){h.mkt='POST';}
+        else{h.mkt='REGULAR';}
         h.vi=Math.round(h.lp*h.q*3.7);
         h.vu=h.q*h.lp;
         updated++;
       });
-      if(!updated)throw new Error('no updates');
+      if(!updated)throw new Error('no stocks updated');
       tot=p.reduce(function(s,x){return s+x.vu;},0);
       render();
       st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
       st.style.color='#22c55e';
     })
     .catch(function(e){
-      console.error('fetchLivePrices failed:',e.message);
+      console.error('fetchLivePrices:',e.message);
       st.textContent='שגיאה - נסה שוב';
       st.style.color='#ef4444';
     });
