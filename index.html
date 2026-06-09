@@ -108,45 +108,35 @@ function render(){
 function fetchLivePrices(){
   var st=document.getElementById('liveStatus');
   st.textContent='טוען...';st.style.color='#6eb3f7';
-  var symbols=p.map(function(s){return s.t;}).join(',');
-  var sparkUrl='https://query1.finance.yahoo.com/v7/finance/spark?symbols='+symbols+'&range=1d&interval=1d';
-  var url='https://corsproxy.io/?url='+encodeURIComponent(sparkUrl);
-  fetch(url)
-    .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
-    .then(function(data){
-      var results=data&&data.spark&&data.spark.result||[];
-      if(!results.length)throw new Error('empty response');
-      var updated=0;
-      results.forEach(function(item){
-        if(!item||!item.response||!item.response[0])return;
-        var meta=item.response[0].meta;
-        if(!meta)return;
-        var h=p.find(function(s){return s.t===item.symbol;});
-        if(!h)return;
-        var prev=meta.chartPreviousClose||h.lp;
-        var cur=meta.regularMarketPrice||h.lp;
-        h.lp=cur;
-        h.dp=prev&&prev!==cur?((cur-prev)/prev*100):h.dp;
-        var now=Date.now()/1000;
-        var periods=meta.currentTradingPeriod||{};
-        if(periods.pre&&now>=periods.pre.start&&now<periods.regular.start){h.mkt='PRE';}
-        else if(periods.post&&now>=periods.post.start){h.mkt='POST';}
-        else{h.mkt='REGULAR';}
-        h.vi=Math.round(h.lp*h.q*3.7);
-        h.vu=h.q*h.lp;
-        updated++;
-      });
-      if(!updated)throw new Error('no stocks updated');
-      tot=p.reduce(function(s,x){return s+x.vu;},0);
-      render();
-      st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
-      st.style.color='#22c55e';
-    })
-    .catch(function(e){
-      console.error('fetchLivePrices:',e.message);
-      st.textContent='שגיאה - נסה שוב';
-      st.style.color='#ef4444';
-    });
+  var promises=p.map(function(h){
+    var chartUrl='https://query1.finance.yahoo.com/v8/finance/chart/'+h.t+'?interval=5m&range=1d&includePrePost=true';
+    var url='https://corsproxy.io/?url='+encodeURIComponent(chartUrl);
+    return fetch(url).then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();}).then(function(d){
+      var res=d&&d.chart&&d.chart.result&&d.chart.result[0];
+      if(!res||!res.meta)return false;
+      var meta=res.meta;
+      var closes=(res.indicators&&res.indicators.quote&&res.indicators.quote[0]&&res.indicators.quote[0].close)||[];
+      var latest=null;
+      for(var i=closes.length-1;i>=0;i--){if(closes[i]!=null){latest=closes[i];break;}}
+      var cur=latest||meta.regularMarketPrice||h.lp;
+      var prev=meta.chartPreviousClose||meta.previousClose||h.lp;
+      h.lp=cur;
+      h.dp=prev&&prev!==cur?((cur-prev)/prev*100):h.dp;
+      var ms=meta.marketState||'REGULAR';
+      h.mkt=ms==='PRE'||ms==='PREPRE'?'PRE':(ms==='POST'||ms==='POSTPOST'?'POST':(ms==='CLOSED'?'CLOSED':'REGULAR'));
+      h.vu=h.q*h.lp;
+      h.vi=Math.round(h.lp*h.q*3.7);
+      return true;
+    }).catch(function(e){console.error('fetch',h.t,e.message);return false;});
+  });
+  Promise.all(promises).then(function(results){
+    var updated=results.filter(function(r){return r;}).length;
+    if(!updated){st.textContent='שגיאה - נסה שוב';st.style.color='#ef4444';return;}
+    tot=p.reduce(function(s,x){return s+x.vu;},0);
+    render();
+    st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL')+' ('+updated+'/'+p.length+')';
+    st.style.color='#22c55e';
+  });
 }
 function init(){
   document.getElementById('lastUpdate').textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
