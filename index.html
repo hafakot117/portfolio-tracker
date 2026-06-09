@@ -85,7 +85,36 @@
     var tot=p.reduce(function(s,x){return s+x.vu},0);
     function fmt(v){var s=v>0?'+':'',c=v>0?'positive':v<0?'negative':'neutral';return '<span class="'+c+'">'+s+v.toFixed(2)+'%</span>';}
     function render(){var tb=document.getElementById('tableBody');tb.innerHTML='';var dt=0;p.forEach(function(s){dt+=(s.dp/100)*s.vu;var pct=(s.vu/tot*100).toFixed(1),bw=Math.min(parseFloat(pct)*3,100),tr=document.createElement('tr');tr.innerHTML='<td><div class="ticker">'+s.t+'</div><div class="company-name">'+s.n+'</div></td><td>'+s.q.toLocaleString()+'</td><td>$'+s.lp.toFixed(2)+'</td><td>&#x20AA;'+Math.round(s.vi).toLocaleString()+'</td><td>$'+s.vu.toFixed(2)+'</td><td>'+fmt(s.dp)+'</td><td>'+fmt(s.tp)+'</td><td>'+pct+'%<div class="bar-container"><div class="bar-fill" style="width:'+bw+'%"></div></div></td>';tb.appendChild(tr);});var el=document.getElementById('dailyChange'),tp2=document.getElementById('totalDailyPct'),pct2=dt/tot*100,cls=pct2>=0?'positive':'negative',sg=pct2>0?'+':'';if(el){el.className='value '+cls;el.textContent=sg+pct2.toFixed(2)+'%';}if(tp2){tp2.innerHTML=fmt(pct2);}}
-    function fetchLivePrices(){var st=document.getElementById('liveStatus');st.textContent='טוען...';st.style.color='#6eb3f7';var tickers=p.map(function(s){return s.t}).join('%2C');var proxyUrl='https://corsproxy.io/?url='+encodeURIComponent('https://query1.finance.yahoo.com/v8/finance/quote?symbols='+p.map(function(s){return s.t}).join(','));fetch(proxyUrl).then(function(r){return r.json()}).then(function(data){var results=(data&&data.quoteResponse&&data.quoteResponse.result)||[];if(results.length===0)throw new Error('no data');results.forEach(function(q){var h=p.find(function(s){return s.t===q.symbol});if(h){h.lp=q.regularMarketPrice||h.lp;h.dp=q.regularMarketChangePercent||h.dp;h.vu=h.q*h.lp;}});render();st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');st.style.color='#22c55e';}).catch(function(e){console.error(e);st.textContent='שגיאה בטעינה - נסה שוב';st.style.color='#ef4444';});}
+    function fetchLivePrices(){
+        var st=document.getElementById('liveStatus');
+        st.textContent='טוען...';st.style.color='#6eb3f7';
+        var symbols=p.map(function(s){return s.t;}).join(',');
+        var yahooUrl='https://query1.finance.yahoo.com/v8/finance/quote?symbols='+symbols+'&fields=regularMarketPrice,regularMarketChangePercent';
+        var proxies=[
+              'https://api.allorigins.win/get?url='+encodeURIComponent(yahooUrl),
+              'https://corsproxy.io/?url='+encodeURIComponent(yahooUrl)
+            ];
+        function tryProxy(i){
+              if(i>=proxies.length){st.textContent='שגיאה בטעינה - נסה שוב';st.style.color='#ef4444';return;}
+              fetch(proxies[i])
+                .then(function(r){return r.json();})
+                .then(function(outer){
+                          var raw=outer;
+                          if(outer.contents){try{raw=JSON.parse(outer.contents);}catch(e){throw new Error('parse error');}}
+                          var results=(raw&&raw.quoteResponse&&raw.quoteResponse.result)||[];
+                          if(results.length===0)throw new Error('no data');
+                          results.forEach(function(q){
+                                      var h=p.find(function(s){return s.t===q.symbol;});
+                                      if(h){h.lp=q.regularMarketPrice||h.lp;h.dp=q.regularMarketChangePercent||h.dp;h.vu=h.q*h.lp;}
+                          });
+                          render();
+                          st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
+                          st.style.color='#22c55e';
+                })
+                .catch(function(){tryProxy(i+1);});
+        }
+        tryProxy(0);
+    }
     function init(){document.getElementById('lastUpdate').textContent=new Date().toLocaleDateString('he-IL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});render();}
     if(sessionStorage.getItem('auth')==='1'){init();}
       </script>
