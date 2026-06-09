@@ -59,10 +59,10 @@ tr:hover td{background:#1a2235}
 <div class="company-name">עדכון: <span id="lastUpdate">טוען...</span></div>
 </div>
 <div class="header-stats">
-<div class="stat-box"><div class="label">שווי תיק</div><div class="value neutral" id="totalILS">&#x20AA;331,413</div></div>
+<div class="stat-box"><div class="label">שווי תיק</div><div class="value neutral" id="totalILS">&#x20AA;243,546</div></div>
 <div class="stat-box"><div class="label">שינוי יומי</div><div class="value" id="dailyChange">-</div></div>
 <div class="stat-box"><div class="label">רווח/הפסד</div><div class="value neutral">-</div></div>
-<div class="stat-box"><div class="label">ניירות</div><div class="value neutral">15</div></div>
+<div class="stat-box"><div class="label">ניירות</div><div class="value neutral">14</div></div>
 </div>
 </header>
 <div class="last-updated">&#x1F552; בסיס: 08.06.2026 | לחץ לרענון מחירים</div>
@@ -71,7 +71,7 @@ tr:hover td{background:#1a2235}
 <table>
 <thead><tr><th>נייר</th><th>כמות</th><th>שער</th><th>שווי &#x20AA;</th><th>שווי $</th><th>% יומי</th><th>% כולל</th><th>% תיק</th></tr></thead>
 <tbody id="tableBody"></tbody>
-<tfoot><tr class="total-row"><td colspan="3">סה"כ</td><td id="footILS">&#x20AA;331,413</td><td id="footUSD">$89,571</td><td id="totalDailyPct">-</td><td>-</td><td>100%</td></tr></tfoot>
+<tfoot><tr class="total-row"><td colspan="3">סה"כ</td><td id="footILS">&#x20AA;243,546</td><td id="footUSD">$82,763</td><td id="totalDailyPct">-</td><td>-</td><td>100%</td></tr></tfoot>
 </table>
 <div class="api-section">
 <h3>&#x1F504; רענן מחירים חיים</h3>
@@ -86,7 +86,7 @@ tr:hover td{background:#1a2235}
 function simpleHash(s){var h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return h;}
 function checkPw(){var v=document.getElementById('pwInput').value;if(simpleHash(v)===718930278){document.getElementById('lockScreen').style.display='none';document.getElementById('mainContent').style.display='block';sessionStorage.setItem('auth','1');init();}else{document.getElementById('pwError').textContent='סיסמה שגויה, נסה שוב';document.getElementById('pwInput').value='';document.getElementById('pwInput').focus();}}
 if(sessionStorage.getItem('auth')==='1'){document.getElementById('lockScreen').style.display='none';document.getElementById('mainContent').style.display='block';}
-var p=[{t:'BABA',n:'ALIBABA GROUP',q:44,lp:122.09,vi:19877,vu:5371.96,dp:0,tp:0},{t:'BIDU',n:'BIDU INC',q:31,lp:120.05,vi:13770,vu:3721.55,dp:0,tp:0},{t:'AVGO',n:'BROADCOM',q:9,lp:397.30,vi:13230,vu:3575.72,dp:0,tp:0},{t:'PLAY',n:'DAVE AND BUSTERS',q:862,lp:11.15,vi:35562,vu:9611.30,dp:0,tp:0},{t:'HIPO',n:'HIPPO HOLDINGS',q:196,lp:24.82,vi:18000,vu:4864.72,dp:0,tp:0},{t:'META',n:'META PLATFORMS',q:6,lp:596.56,vi:13243,vu:3579.35,dp:0,tp:0},{t:'NFLX',n:'NETFLIX INC',q:48,lp:81.76,vi:14520,vu:3924.48,dp:0,tp:0},{t:'MSTR',n:'MICROSTRATEGY',q:107,lp:125.21,vi:49571,vu:13397.47,dp:0,tp:0},{t:'TSEM',n:'TOWER SEMICONDUCTOR',q:6,lp:246.34,vi:5469,vu:1478.04,dp:0,tp:0},{t:'UPWK',n:'UPWORK INC',q:697,lp:8.69,vi:22411,vu:6056.93,dp:0,tp:0},{t:'VRA',n:'VERA BRADLEY',q:490,lp:2.81,vi:5094,vu:1376.90,dp:0,tp:0},{t:'WIX',n:'WIX.COM',q:108,lp:48.30,vi:19301,vu:5216.40,dp:0,tp:0},{t:'ZIM',n:'ZIM INTEGRATED',q:267,lp:25.48,vi:25172,vu:6803.16,dp:0,tp:0},{t:'ZTS',n:'ZOETIS INC',q:145,lp:80.18,vi:43017,vu:11626.10,dp:0,tp:0},{t:'SNDQ',n:'SANDISK SHORT',q:1492,lp:6.01,vi:33178,vu:8966.92,dp:0,tp:0}];
+var p=[{t:'BABA',n:'ALIBABA GROUP',q:44,lp:120.07,vi:15548,vu:5283.08,dp:-0.82,tp:-6.11},{t:'BIDU',n:'BIDU INC',q:31,lp:119.10,vi:10866,vu:3692.10,dp:-2.10,tp:-5.36},{t:'AVGO',n:'BROADCOM',q:9,lp:396.60,vi:10505,vu:3569.40,dp:2.82,tp:-2.93},{t:'PLAY',n:'DAVE AND BUSTERS',q:862,lp:11.04,vi:28007,vu:9516.48,dp:-1.43,tp:-5.51},{t:'HIPO',n:'HIPPO HOLDINGS',q:196,lp:24.54,vi:14155,vu:4809.84,dp:-1.13,tp:-33.40},{t:'META',n:'META PLATFORMS',q:6,lp:585.39,vi:10337,vu:3512.34,dp:-1.28,tp:-2.47},{t:'NFLX',n:'NETFLIX INC',q:48,lp:82.64,vi:11674,vu:3966.72,dp:0.56,tp:-0.81},{t:'TSEM',n:'TOWER SEMICONDUCTOR',q:6,lp:242.04,vi:4274,vu:1452.24,dp:2.79,tp:-5.45},{t:'UPWK',n:'UPWORK INC',q:697,lp:8.87,vi:18195,vu:6182.39,dp:1.26,tp:-15.35},{t:'VRA',n:'VERA BRADLEY',q:490,lp:3.30,vi:4759,vu:1617.00,dp:7.14,tp:-17.08},{t:'WIX',n:'WIX.COM',q:163,lp:48.21,vi:23127,vu:7858.23,dp:-7.98,tp:-7.83},{t:'ZIM',n:'ZIM INTEGRATED',q:267,lp:25.56,vi:20085,vu:6824.52,dp:1.27,tp:-2.29},{t:'ZTS',n:'ZOETIS INC',q:145,lp:78.82,vi:33635,vu:11428.90,dp:-0.78,tp:-10.17},{t:'SNDQ',n:'SANDISK SHORT',q:2216,lp:5.89,vi:38380,vu:13041.16,dp:-10.70,tp:-1.03}];
 var tot=p.reduce(function(s,x){return s+x.vu},0);
 function fmt(v){var s=v>0?'+':'',c=v>0?'positive':v<0?'negative':'neutral';return '<span class="'+c+'">'+s+v.toFixed(2)+'%</span>';}
 function render(){
