@@ -110,8 +110,7 @@ function fetchLivePrices(){
   var st=document.getElementById('liveStatus');
   st.textContent='טוען...';st.style.color='#6eb3f7';
   var symbols=p.map(function(s){return s.t;}).join(',');
-  var apiUrl='https://query1.finance.yahoo.com/v8/finance/quote?symbols='+symbols+'&fields=regularMarketPrice,preMarketPrice,postMarketPrice,regularMarketPreviousClose,marketState';
-  fetch(PROXY+'?url='+encodeURIComponent(apiUrl))
+  fetch(PROXY+'?symbols='+symbols)
     .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
     .then(function(data){
       var results=data&&data.quoteResponse&&data.quoteResponse.result||[];
