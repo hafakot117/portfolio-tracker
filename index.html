@@ -109,29 +109,25 @@ function fetchLivePrices(){
   var st=document.getElementById('liveStatus');
   st.textContent='טוען...';st.style.color='#6eb3f7';
   var symbols=p.map(function(s){return s.t;}).join(',');
-  var sparkUrl='https://query1.finance.yahoo.com/v7/finance/spark?symbols='+symbols+'&range=1d&interval=1d';
-  var url='https://corsproxy.io/?url='+encodeURIComponent(sparkUrl);
+  var quoteUrl='https://query1.finance.yahoo.com/v8/finance/quote?symbols='+symbols+'&fields=regularMarketPrice,preMarketPrice,postMarketPrice,regularMarketPreviousClose,marketState';
+  var url='https://corsproxy.io/?url='+encodeURIComponent(quoteUrl);
   fetch(url)
     .then(function(r){if(!r.ok)throw new Error('http '+r.status);return r.json();})
     .then(function(data){
-      var results=data&&data.spark&&data.spark.result||[];
+      var results=data&&data.quoteResponse&&data.quoteResponse.result||[];
       if(!results.length)throw new Error('empty response');
       var updated=0;
-      results.forEach(function(item){
-        if(!item||!item.response||!item.response[0])return;
-        var meta=item.response[0].meta;
-        if(!meta)return;
-        var h=p.find(function(s){return s.t===item.symbol;});
+      results.forEach(function(q){
+        var h=p.find(function(s){return s.t===q.symbol;});
         if(!h)return;
-        var prev=meta.chartPreviousClose||h.lp;
-        var cur=meta.regularMarketPrice||h.lp;
+        var state=q.marketState||'REGULAR';
+        var prev=q.regularMarketPreviousClose||h.lp;
+        var cur;
+        if(state==='PRE'&&q.preMarketPrice){cur=q.preMarketPrice;h.mkt='PRE';}
+        else if((state==='POST'||state==='POSTPOST'||state==='CLOSED')&&q.postMarketPrice){cur=q.postMarketPrice;h.mkt='POST';}
+        else{cur=q.regularMarketPrice||h.lp;h.mkt='REGULAR';}
         h.lp=cur;
         h.dp=prev&&prev!==cur?((cur-prev)/prev*100):h.dp;
-        var now=Date.now()/1000;
-        var periods=meta.currentTradingPeriod||{};
-        if(periods.pre&&now>=periods.pre.start&&now<periods.regular.start){h.mkt='PRE';}
-        else if(periods.post&&now>=periods.post.start){h.mkt='POST';}
-        else{h.mkt='REGULAR';}
         h.vi=Math.round(h.lp*h.q*3.7);
         h.vu=h.q*h.lp;
         updated++;
@@ -139,7 +135,9 @@ function fetchLivePrices(){
       if(!updated)throw new Error('no stocks updated');
       tot=p.reduce(function(s,x){return s+x.vu;},0);
       render();
-      st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
+      var stateLabel=results[0]&&results[0].marketState||'';
+      var stateHe=stateLabel==='PRE'?'(לפני פתיחה)':stateLabel==='POST'||stateLabel==='POSTPOST'?'(אחרי סגירה)':'';
+      st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL')+' '+stateHe;
       st.style.color='#22c55e';
     })
     .catch(function(e){
