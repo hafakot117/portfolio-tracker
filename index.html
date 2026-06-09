@@ -39,6 +39,7 @@ tr:hover td{background:#1a2235}
 .api-section h3{color:#6eb3f7;margin-bottom:15px;font-size:1em}
 .bar-container{background:#1a2235;border-radius:4px;height:6px;overflow:hidden;margin-top:4px}
 .bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#3b82f6,#6eb3f7)}
+.market-state{font-size:.7em;color:#f59e0b;margin-right:4px}
 </style>
 </head>
 <body>
@@ -88,30 +89,28 @@ if(sessionStorage.getItem('auth')==='1'){document.getElementById('lockScreen').s
 var p=[{t:'BABA',n:'ALIBABA GROUP',q:44,lp:120.07,vi:15548,vu:5283.08,dp:-0.82,tp:-6.11},{t:'BIDU',n:'BIDU INC',q:31,lp:119.10,vi:10866,vu:3692.10,dp:-2.10,tp:-5.36},{t:'AVGO',n:'BROADCOM',q:9,lp:396.60,vi:10505,vu:3569.40,dp:2.82,tp:-2.93},{t:'PLAY',n:'DAVE AND BUSTERS',q:862,lp:11.04,vi:28007,vu:9516.48,dp:-1.43,tp:-5.51},{t:'HIPO',n:'HIPPO HOLDINGS',q:196,lp:24.54,vi:14155,vu:4809.84,dp:-1.13,tp:-33.40},{t:'META',n:'META PLATFORMS',q:6,lp:585.39,vi:10337,vu:3512.34,dp:-1.28,tp:-2.47},{t:'NFLX',n:'NETFLIX INC',q:48,lp:82.64,vi:11674,vu:3966.72,dp:0.56,tp:-0.81},{t:'TSEM',n:'TOWER SEMICONDUCTOR',q:6,lp:242.04,vi:4274,vu:1452.24,dp:2.79,tp:-5.45},{t:'UPWK',n:'UPWORK INC',q:697,lp:8.87,vi:18195,vu:6182.39,dp:1.26,tp:-15.35},{t:'VRA',n:'VERA BRADLEY',q:490,lp:3.30,vi:4759,vu:1617,dp:7.14,tp:-17.08},{t:'WIX',n:'WIX.COM',q:163,lp:48.21,vi:23127,vu:7858.23,dp:-7.98,tp:-7.83},{t:'ZIM',n:'ZIM INTEGRATED',q:267,lp:25.56,vi:20085,vu:6824.52,dp:1.27,tp:-2.29},{t:'ZTS',n:'ZOETIS INC',q:145,lp:78.82,vi:33635,vu:11428.90,dp:-0.78,tp:-10.17}];
 var tot=p.reduce(function(s,x){return s+x.vu},0);
 function fmt(v){var s=v>0?'+':'',c=v>0?'positive':v<0?'negative':'neutral';return '<span class="'+c+'">'+s+v.toFixed(2)+'%</span>';}
+function getBestPrice(q){
+  var state=q.marketState||'REGULAR';
+  var price=q.regularMarketPrice,change=q.regularMarketChangePercent;
+  if(state==='PRE'&&q.preMarketPrice){price=q.preMarketPrice;change=q.preMarketChangePercent||change;}
+  else if((state==='POST'||state==='POSTPOST')&&q.postMarketPrice){price=q.postMarketPrice;change=q.postMarketChangePercent||change;}
+  return {price:price,change:change,state:state};
+}
 function render(){
   var tb=document.getElementById('tableBody');tb.innerHTML='';var dt=0;
   p.forEach(function(s){
     dt+=(s.dp/100)*s.vu;
     var pct=(s.vu/tot*100).toFixed(1),bw=Math.min(parseFloat(pct)*3,100),tr=document.createElement('tr');
-    var priceLabel=s.marketState&&s.marketState!=='REGULAR'?'<span style="font-size:.7em;color:#f59e0b"> ('+s.marketState+')</span>':'';
-    tr.innerHTML='<td><div class="ticker">'+s.t+'</div><div class="company-name">'+s.n+'</div></td><td>'+s.q.toLocaleString()+'</td><td>$'+s.lp.toFixed(2)+priceLabel+'</td><td>&#x20AA;'+Math.round(s.vi).toLocaleString()+'</td><td>$'+s.vu.toFixed(2)+'</td><td>'+fmt(s.dp)+'</td><td>'+fmt(s.tp)+'</td><td>'+pct+'%<div class="bar-container"><div class="bar-fill" style="width:'+bw+'%"></div></div></td>';
+    var stateTag=s.marketState&&s.marketState!=='REGULAR'?'<span class="market-state">('+s.marketState+')</span>':'';
+    tr.innerHTML='<td><div class="ticker">'+s.t+'</div><div class="company-name">'+s.n+'</div></td><td>'+s.q.toLocaleString()+'</td><td>$'+s.lp.toFixed(2)+stateTag+'</td><td>&#x20AA;'+Math.round(s.vi).toLocaleString()+'</td><td>$'+s.vu.toFixed(2)+'</td><td>'+fmt(s.dp)+'</td><td>'+fmt(s.tp)+'</td><td>'+pct+'%<div class="bar-container"><div class="bar-fill" style="width:'+bw+'%"></div></div></td>';
     tb.appendChild(tr);
   });
   var el=document.getElementById('dailyChange'),tp2=document.getElementById('totalDailyPct'),pct2=dt/tot*100,cls=pct2>=0?'positive':'negative',sg=pct2>0?'+':'';
   if(el){el.className='value '+cls;el.textContent=sg+pct2.toFixed(2)+'%';}
   if(tp2){tp2.innerHTML=fmt(pct2);}
-  var footILS=document.getElementById('footILS');
-  if(footILS){footILS.textContent='&#x20AA;'+Math.round(tot*3.7).toLocaleString();}
-  var footUSD=document.getElementById('footUSD');
-  if(footUSD){footUSD.textContent='$'+Math.round(tot).toLocaleString();}
-}
-function getBestPrice(q){
-  var state=q.marketState||'REGULAR';
-  var price=q.regularMarketPrice;
-  var change=q.regularMarketChangePercent;
-  if(state==='PRE'&&q.preMarketPrice){price=q.preMarketPrice;change=q.preMarketChangePercent||change;}
-  else if((state==='POST'||state==='POSTPOST')&&q.postMarketPrice){price=q.postMarketPrice;change=q.postMarketChangePercent||change;}
-  return {price:price,change:change,state:state};
+  var fi=document.getElementById('footILS');if(fi)fi.textContent='₪'+Math.round(tot*3.7).toLocaleString();
+  var fu=document.getElementById('footUSD');if(fu)fu.textContent='$'+Math.round(tot).toLocaleString();
+  var ti=document.getElementById('totalILS');if(ti)ti.textContent='₪'+Math.round(tot*3.7).toLocaleString();
 }
 function fetchLivePrices(){
   var st=document.getElementById('liveStatus');
@@ -134,20 +133,13 @@ function fetchLivePrices(){
         if(!results.length)throw new Error('empty');
         results.forEach(function(q){
           var h=p.find(function(s){return s.t===q.symbol;});
-          if(h){
-            var best=getBestPrice(q);
-            h.lp=best.price||h.lp;
-            h.dp=best.change||h.dp;
-            h.marketState=best.state;
-            h.vi=Math.round(h.lp*h.q*3.7);
-            h.vu=h.q*h.lp;
-          }
+          if(h){var best=getBestPrice(q);h.lp=best.price||h.lp;h.dp=best.change||h.dp;h.marketState=best.state;h.vi=Math.round(h.lp*h.q*3.7);h.vu=h.q*h.lp;}
         });
         tot=p.reduce(function(s,x){return s+x.vu;},0);
         render();
-        var states=p.map(function(s){return s.marketState;}).filter(function(v,i,a){return a.indexOf(v)===i;});
-        var stateNote=states.length===1&&states[0]==='REGULAR'?'':'  ['+states.join('/')+']';
-        st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL')+stateNote;
+        var states=[...new Set(p.map(function(s){return s.marketState||'REGULAR';}))];
+        var note=states.length===1&&states[0]==='REGULAR'?'':'  ['+states.join('/')+']';
+        st.textContent='עודכן: '+new Date().toLocaleTimeString('he-IL')+note;
         st.style.color='#22c55e';
       })
       .catch(function(e){console.warn('proxy '+i+' failed:',e.message);tryProxy(i+1);});
