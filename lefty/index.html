@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Switch Hands - Train Your Left Hand</title>
+<meta name="description" content="An educational site for adults curious about training their non-dominant (left) hand. Brain science, pros &amp; cons, games and challenges.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============== AGE GATE ============== -->
+<div id="ageGate" class="overlay">
+  <div class="gate-card">
+    <div class="gate-emoji">&#x270B;</div>
+    <h1>Switch Hands</h1>
+    <p class="gate-sub">Train your non-dominant hand. For curious right-handers who want to teach their left hand new tricks.</p>
+
+    <div class="warning-box">
+      <strong>&#x26A0;&#xFE0F; This site is for adults only (18+).</strong>
+      <p>By entering you confirm you are at least 18 years old, you have read the disclaimer below, and you accept that any consequences from following the exercises on this site are entirely your own responsibility.</p>
+    </div>
+
+    <details class="disclaimer-details">
+      <summary>Read the full legal disclaimer</summary>
+      <div class="disclaimer-text">
+        <p><strong>No medical advice.</strong> The content on this website is provided for educational and entertainment purposes only. It is not medical, psychological, neurological, or therapeutic advice and is not a substitute for a consultation with a qualified professional.</p>
+        <p><strong>You assume all risk.</strong> Practicing motor skills with your non-dominant hand may carry risks including, but not limited to: muscle strain or fatigue, joint pain, hand cramps, frustration, headaches, temporary clumsiness, dropped or damaged objects, and any indirect or consequential damages arising from such events. By using this site you accept the entire risk, including any cost of treatment or replacement.</p>
+        <p><strong>Do not switch under coercion.</strong> Forcing a child or any person to change their dominant hand against their will has been historically associated with negative psychological effects. Only train yourself, only voluntarily, and stop at any time.</p>
+        <p><strong>Stop if it hurts.</strong> If you feel pain, numbness, tingling, persistent cramping, or emotional distress, stop immediately and consult a qualified medical professional.</p>
+        <p><strong>Avoid risky activities.</strong> Do not use your untrained hand for tasks that could cause harm to yourself or others &mdash; for example: driving, operating machinery or power tools, handling knives or hot liquids, carrying infants, firearms, or any safety-critical activity.</p>
+        <p><strong>No warranty.</strong> All content is provided &ldquo;as is&rdquo; without warranty of any kind. The site owners and contributors disclaim all liability to the maximum extent permitted by applicable law.</p>
+        <p><strong>Age restriction.</strong> This site is intended for users aged 18 and over. If you are under 18, please leave.</p>
+      </div>
+    </details>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="agreeBox">
+      <span>I am 18+ and I accept the disclaimer and assume all risk.</span>
+    </label>
+
+    <div class="gate-buttons">
+      <button id="enterBtn" class="btn btn-primary" disabled>Enter the site</button>
+      <a href="https://www.google.com" class="btn btn-secondary">Leave</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MAIN SITE ============== -->
+<div id="site" hidden>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">&#x270B; Switch<span>Hands</span></a>
+    <nav>
+      <a href="#brain">Brain</a>
+      <a href="#proscons">Pros &amp; Cons</a>
+      <a href="#challenges">Challenges</a>
+      <a href="#games">Games</a>
+      <a href="#disclaimer">Legal</a>
+    </nav>
+  </div>
+</header>
+
+<section id="top" class="hero">
+  <div class="container">
+    <h1>Teach your left hand new tricks.</h1>
+    <p class="lead">A playful, science-backed training ground for right-handers who want to become more <em>ambidextrous</em> &mdash; or fully switch. Read the brain science, weigh the trade-offs, then try the daily challenges and mini-games.</p>
+    <div class="hero-cta">
+      <a href="#brain" class="btn btn-primary">Learn the science</a>
+      <a href="#games" class="btn btn-ghost">Skip to games</a>
+    </div>
+    <p class="hero-note">For adults only. You are responsible for your own training and safety.</p>
+  </div>
+</section>
+
+<!-- ============== BRAIN SCIENCE ============== -->
+<section id="brain" class="section">
+  <div class="container">
+    <h2>How the brain decides which hand you use</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-icon">&#x1F9E0;</div>
+        <h3>Crossed wiring</h3>
+        <p>Your motor cortex controls the <strong>opposite</strong> side of your body. The <em>right hemisphere</em> drives your left hand, and the <em>left hemisphere</em> drives your right hand. This crossover is called <strong>contralateral motor control</strong>.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F517;</div>
+        <h3>The bridge between sides</h3>
+        <p>A thick band of ~200 million nerve fibers called the <strong>corpus callosum</strong> connects the two hemispheres. Training your non-dominant hand encourages cross-talk between sides as both hemispheres negotiate the new movement.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F331;</div>
+        <h3>Neuroplasticity</h3>
+        <p>The brain is plastic: practice rewires synapses, strengthens neural pathways, and expands the cortical &ldquo;map&rdquo; that represents the trained hand. This is why a violinist&rsquo;s left-hand fingers get more cortex than yours &mdash; and why your left hand can improve too.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F4DA;</div>
+        <h3>Why most people are right-handed</h3>
+        <p>About <strong>90%</strong> of humans are right-hand dominant. The exact cause is unknown, but a mix of <em>genes</em> (e.g. the PCSK6 and LRRTM1 gene regions), prenatal hormones, and culture all play a role. Hand preference appears as early as the second trimester in the womb.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F4AC;</div>
+        <h3>Hand &amp; language</h3>
+        <p>In roughly 95% of right-handers, the language centers (Broca&rsquo;s and Wernicke&rsquo;s areas) live in the <em>left</em> hemisphere &mdash; the same hemisphere that controls your dominant hand. The link is real but the cause is debated.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F3CB;&#xFE0F;</div>
+        <h3>It&rsquo;s motor learning</h3>
+        <p>Switching hands is essentially a motor-learning project. Expect three classic stages: <strong>cognitive</strong> (clumsy, slow, very conscious), <strong>associative</strong> (fewer errors, smoother), and <strong>autonomous</strong> (automatic). Most learners need months of consistent practice to reach stage three.</p>
+      </div>
+    </div>
+
+    <!-- Interactive brain diagram -->
+    <div class="brain-diagram">
+      <h3>Click a hemisphere</h3>
+      <svg viewBox="0 0 400 240" class="brain-svg" aria-label="Simplified brain diagram">
+        <defs>
+          <linearGradient id="leftHem" x1="0" x2="1">
+            <stop offset="0%" stop-color="#f7c1d9"/>
+            <stop offset="100%" stop-color="#d96aa3"/>
+          </linearGradient>
+          <linearGradient id="rightHem" x1="0" x2="1">
+            <stop offset="0%" stop-color="#a8d8ff"/>
+            <stop offset="100%" stop-color="#5fa9e8"/>
+          </linearGradient>
+        </defs>
+        <path id="hemL" d="M 200 30 C 110 30 60 90 60 150 C 60 200 110 220 200 220 Z" fill="url(#leftHem)" stroke="#5a2a44" stroke-width="2"/>
+        <path id="hemR" d="M 200 30 C 290 30 340 90 340 150 C 340 200 290 220 200 220 Z" fill="url(#rightHem)" stroke="#1f4a73" stroke-width="2"/>
+        <text x="125" y="155" text-anchor="middle" font-size="14" fill="#3a1a2a" font-weight="bold">LEFT</text>
+        <text x="125" y="172" text-anchor="middle" font-size="11" fill="#3a1a2a">controls RIGHT hand</text>
+        <text x="275" y="155" text-anchor="middle" font-size="14" fill="#0d2840" font-weight="bold">RIGHT</text>
+        <text x="275" y="172" text-anchor="middle" font-size="11" fill="#0d2840">controls LEFT hand</text>
+      </svg>
+      <div id="brainInfo" class="brain-info">Click a side of the brain above.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROS AND CONS ============== -->
+<section id="proscons" class="section alt">
+  <div class="container">
+    <h2>Pros &amp; cons of training your non-dominant hand</h2>
+
+    <div class="pc-grid">
+      <div class="pc-col pros">
+        <h3>&#x2705; Potential benefits</h3>
+        <ul>
+          <li><strong>Greater independence.</strong> Useful backup if you injure your dominant hand.</li>
+          <li><strong>Improved fine motor control</strong> on the trained side over time.</li>
+          <li><strong>Cognitive challenge.</strong> Motor learning is great brain exercise and engages cross-hemisphere coordination.</li>
+          <li><strong>Sport &amp; music advantages.</strong> Ambidexterity helps in boxing, basketball, tennis, guitar, drums, etc.</li>
+          <li><strong>Better ergonomics.</strong> Switching tasks (mouse, phone, fork) can ease repetitive-strain pain.</li>
+          <li><strong>Fun &amp; novel.</strong> Forces you to slow down and pay attention &mdash; a form of active mindfulness.</li>
+        </ul>
+      </div>
+
+      <div class="pc-col cons">
+        <h3>&#x274C; Risks &amp; downsides</h3>
+        <ul>
+          <li><strong>Frustration &amp; slow progress.</strong> Tasks that used to be effortless become hard. Many people quit.</li>
+          <li><strong>Strain &amp; fatigue.</strong> Untrained muscles and tendons can ache or cramp.</li>
+          <li><strong>Drops &amp; spills.</strong> Plates, phones and cups can suffer. Use cheap objects while learning.</li>
+          <li><strong>Time cost.</strong> Realistic, fluent switching typically takes <em>months</em> of daily practice.</li>
+          <li><strong>Handwriting plateau.</strong> Many adults reach a &ldquo;legible but slow&rdquo; ceiling on their non-dominant side.</li>
+          <li><strong>Historical harm.</strong> Forcing a child to switch hands has been linked to stress, stuttering and emotional harm. Only train yourself, only voluntarily.</li>
+          <li><strong>No guaranteed IQ boost.</strong> The popular claim that switching hands &ldquo;makes you smarter&rdquo; is not well supported by evidence.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CHALLENGES ============== -->
+<section id="challenges" class="section">
+  <div class="container">
+    <h2>30-day challenge</h2>
+    <p class="section-lead">Tick off one task per day for a month. Progress is saved in your browser. <button id="resetChallenges" class="link-btn">Reset progress</button></p>
+
+    <div id="progressBar" class="progress">
+      <div id="progressFill" class="progress-fill"></div>
+      <span id="progressLabel" class="progress-label">0 / 30 complete</span>
+    </div>
+
+    <div id="challengeGrid" class="challenge-grid"></div>
+  </div>
+</section>
+
+<!-- ============== GAMES ============== -->
+<section id="games" class="section alt">
+  <div class="container">
+    <h2>Mini-games</h2>
+    <p class="section-lead">All games are designed to be played with your <strong>left hand only</strong>. Put your right hand behind your back &mdash; we&rsquo;re on the honor system.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="draw">&#x270F;&#xFE0F; Mirror Drawing</button>
+      <button class="tab-btn" data-tab="click">&#x1F3AF; Click Targets</button>
+      <button class="tab-btn" data-tab="react">&#x26A1; Reaction Time</button>
+      <button class="tab-btn" data-tab="type">&#x2328;&#xFE0F; Word Type</button>
+    </div>
+
+    <!-- DRAWING GAME -->
+    <div class="tab-panel active" data-panel="draw">
+      <h3>Mirror Drawing</h3>
+      <p>Try to trace the shape with your <strong>left hand</strong>. The canvas mirrors your movement &mdash; just like learning to write left-handed!</p>
+      <div class="game-row">
+        <canvas id="drawCanvas" width="500" height="320" class="canvas-pad"></canvas>
+        <div class="game-controls">
+          <label class="ctrl-row">
+            <input type="checkbox" id="mirrorToggle" checked> Mirror mode
+          </label>
+          <label class="ctrl-row">
+            <span>Brush</span>
+            <input type="range" id="brushSize" min="2" max="20" value="5">
+          </label>
+          <label class="ctrl-row">
+            <span>Color</span>
+            <input type="color" id="brushColor" value="#d96aa3">
+          </label>
+          <button id="clearCanvas" class="btn btn-secondary">Clear</button>
+          <button id="loadShape" class="btn btn-ghost">Show shape to trace</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLICK TARGETS -->
+    <div class="tab-panel" data-panel="click">
+      <h3>Click Targets &mdash; left hand only</h3>
+      <p>Click the dots as fast as you can. 20 dots. Your score &amp; best are saved.</p>
+      <div class="click-stats">
+        <div><span>Time</span><b id="clickTime">0.00s</b></div>
+        <div><span>Hit</span><b id="clickHit">0 / 20</b></div>
+        <div><span>Best</span><b id="clickBest">&mdash;</b></div>
+      </div>
+      <div class="click-arena" id="clickArena"></div>
+      <button id="startClick" class="btn btn-primary">Start</button>
+    </div>
+
+    <!-- REACTION TIME -->
+    <div class="tab-panel" data-panel="react">
+      <h3>Reaction time</h3>
+      <p>Click as soon as the box turns green. 5 trials, the average is your score.</p>
+      <div id="reactBox" class="react-box">Click to start</div>
+      <div class="click-stats">
+        <div><span>Last</span><b id="reactLast">&mdash;</b></div>
+        <div><span>Avg</span><b id="reactAvg">&mdash;</b></div>
+        <div><span>Best avg</span><b id="reactBest">&mdash;</b></div>
+      </div>
+    </div>
+
+    <!-- TYPE GAME -->
+    <div class="tab-panel" data-panel="type">
+      <h3>Left-hand word type</h3>
+      <p>Type the prompt below using only your left hand. We time you. The words are chosen from the <em>left side</em> of a QWERTY keyboard.</p>
+      <div class="prompt" id="typePrompt">&mdash;</div>
+      <input type="text" id="typeInput" class="type-input" placeholder="type here..." autocomplete="off">
+      <div class="click-stats">
+        <div><span>Time</span><b id="typeTime">0.00s</b></div>
+        <div><span>WPM</span><b id="typeWpm">&mdash;</b></div>
+        <div><span>Best WPM</span><b id="typeBest">&mdash;</b></div>
+      </div>
+      <button id="newPrompt" class="btn btn-secondary">New prompt</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DISCLAIMER FOOTER ============== -->
+<section id="disclaimer" class="section">
+  <div class="container">
+    <h2>Legal disclaimer</h2>
+    <div class="disclaimer-box">
+      <p><strong>Educational content only.</strong> Everything on this site is for general information and entertainment. It is not medical, psychological, neurological or therapeutic advice.</p>
+      <p><strong>You assume the entire risk.</strong> By using this site you accept that any consequence &mdash; physical, mental, financial, or otherwise &mdash; arising from following the exercises, games or challenges here is entirely your own responsibility. This includes injuries, strain, broken or dropped objects, lost time, frustration and emotional distress.</p>
+      <p><strong>Adults only.</strong> This site is intended for users 18 years of age or older.</p>
+      <p><strong>Stop if you feel pain.</strong> Numbness, tingling, persistent cramping, joint pain or emotional distress are signals to stop and, if needed, consult a qualified professional.</p>
+      <p><strong>Don&rsquo;t do dangerous things one-handed.</strong> Never use your untrained hand for safety-critical tasks (driving, machinery, knives, hot liquids, children, firearms, etc.).</p>
+      <p><strong>No warranty.</strong> The site is provided &ldquo;as is&rdquo; with no warranty of any kind. The site owners disclaim liability to the maximum extent permitted by law.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&#x270B; Switch Hands &middot; an educational toy site. Use responsibly.</p>
+    <p><a href="#top">Back to top</a></p>
+  </div>
+</footer>
+
+</div><!-- /#site -->
+
+<script src="app.js"></script>
+</body>
+</html>
