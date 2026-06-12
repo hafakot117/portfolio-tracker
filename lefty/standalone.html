@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Switch Hands - Train Your Left Hand</title>
+<meta name="description" content="An educational site for adults curious about training their non-dominant (left) hand. Brain science, pros &amp; cons, games and challenges.">
+<style>
+/* ============ RESET & BASE ============ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #faf7f3;
+  color: #1f1b24;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg, canvas { max-width: 100%; display: block; }
+h1, h2, h3 { line-height: 1.2; margin: 0 0 .6em; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 1rem; }
+h3 { font-size: 1.15rem; }
+p  { margin: 0 0 .9em; }
+a  { color: #c43b7c; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-block;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform .12s, box-shadow .12s, background .12s;
+  text-align: center;
+}
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary  { background: #d96aa3; color: #fff; box-shadow: 0 6px 18px -8px rgba(217,106,163,.7); }
+.btn-primary:hover:not(:disabled){ background:#c43b7c; transform: translateY(-1px); }
+.btn-secondary{ background: #eadbe7; color:#5a2a44; }
+.btn-secondary:hover{ background:#dec3d9; }
+.btn-ghost { background: transparent; color: #5a2a44; border: 1.5px solid #d2b9cd; }
+.btn-ghost:hover { background:#fff; }
+.link-btn { background: none; border: 0; color:#c43b7c; cursor: pointer; font: inherit; padding: 0; text-decoration: underline; }
+
+/* ============ AGE GATE ============ */
+.overlay {
+  position: fixed; inset: 0;
+  background: linear-gradient(135deg, #f4d1e3, #c8e1f4);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; z-index: 9999;
+  overflow-y: auto;
+}
+.gate-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 34px 30px;
+  max-width: 560px;
+  width: 100%;
+  box-shadow: 0 25px 60px -20px rgba(60,20,50,.35);
+  text-align: center;
+  margin: 20px 0;
+}
+.gate-card h1 { margin-bottom: 6px; }
+.gate-emoji { font-size: 3.4rem; margin-bottom: 6px; }
+.gate-sub { color:#5a2a44; margin-bottom: 18px; }
+.warning-box {
+  background: #fff4d6;
+  border: 1.5px solid #f0c14b;
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: .92rem;
+  margin-bottom: 14px;
+}
+.warning-box p { margin: 6px 0 0; }
+.disclaimer-details {
+  text-align: left;
+  background: #f7f0f4;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.disclaimer-details summary { cursor: pointer; font-weight: 600; color:#5a2a44; }
+.disclaimer-text { font-size: .87rem; margin-top: 10px; max-height: 220px; overflow-y: auto; padding-right: 6px; }
+.disclaimer-text p { margin-bottom: 8px; }
+.checkbox-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  text-align: left; font-size: .92rem;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+.checkbox-row input { margin-top: 4px; transform: scale(1.2); cursor: pointer; }
+.gate-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ============ HEADER ============ */
+.site-header {
+  position: sticky; top: 0;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #eadbe7;
+  z-index: 100;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px;
+  gap: 18px; flex-wrap: wrap;
+}
+.logo { font-size: 1.3rem; font-weight: 700; color:#5a2a44; }
+.logo span { color:#d96aa3; }
+.site-header nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.site-header nav a { color: #5a2a44; font-weight: 500; }
+.site-header nav a:hover { color: #c43b7c; }
+
+/* ============ HERO ============ */
+.hero {
+  background: linear-gradient(135deg, #fde6f0 0%, #e2f0fc 100%);
+  padding: 70px 0 60px;
+  text-align: center;
+}
+.hero h1 { color: #3a1a2a; }
+.hero .lead { font-size: 1.15rem; max-width: 620px; margin: 0 auto 24px; color: #5a2a44; }
+.hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.hero-note { font-size: .82rem; color:#7a5868; }
+
+/* ============ SECTION ============ */
+.section { padding: 60px 0; }
+.section.alt { background: #f3edef; }
+.section-lead { margin-bottom: 22px; color:#5a2a44; }
+
+/* ============ INFO CARDS ============ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 4px 18px -12px rgba(60,20,50,.25);
+  border: 1px solid #eee2eb;
+}
+.card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.info-card h3 { color: #5a2a44; }
+.info-card p  { font-size: .94rem; margin: 0; }
+
+/* ============ BRAIN DIAGRAM ============ */
+.brain-diagram {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 4px 18px -12px rgba(60,20,50,.25);
+}
+.brain-svg { max-width: 480px; margin: 0 auto; cursor: pointer; }
+.brain-svg path { transition: filter .15s, transform .15s; transform-origin: 200px 125px; }
+.brain-svg path:hover { filter: brightness(1.07); }
+.brain-svg path.selected { filter: brightness(1.15) drop-shadow(0 0 6px rgba(0,0,0,.25)); }
+.brain-info {
+  margin-top: 14px;
+  font-size: .95rem;
+  color: #5a2a44;
+  min-height: 50px;
+  padding: 10px;
+  background: #faf3f7;
+  border-radius: 10px;
+}
+
+/* ============ PROS / CONS ============ */
+.pc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 720px) { .pc-grid { grid-template-columns: 1fr; } }
+.pc-col {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 18px -12px rgba(60,20,50,.25);
+}
+.pc-col.pros { border-top: 4px solid #4caf6f; }
+.pc-col.cons { border-top: 4px solid #d96a6a; }
+.pc-col h3 { margin-bottom: 12px; }
+.pc-col ul { margin: 0; padding-left: 20px; }
+.pc-col li { margin-bottom: 9px; font-size: .94rem; }
+
+/* ============ CHALLENGES ============ */
+.progress {
+  position: relative;
+  background: #eadbe7;
+  height: 24px;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d96aa3, #5fa9e8);
+  transition: width .4s;
+}
+.progress-label {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .82rem; font-weight: 600; color: #1f1b24;
+}
+.challenge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.challenge {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  font-size: .92rem;
+}
+.challenge:hover { border-color: #d96aa3; }
+.challenge.done { background: #eaf7ee; border-color: #4caf6f; opacity: .8; }
+.challenge.done .ch-text { text-decoration: line-through; }
+.challenge input { margin-top: 3px; transform: scale(1.15); cursor: pointer; flex-shrink: 0; }
+.ch-day { color: #c43b7c; font-weight: 700; margin-right: 6px; }
+
+/* ============ TABS / GAMES ============ */
+.tabs {
+  display: flex; gap: 6px;
+  background: #eadbe7;
+  padding: 6px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  flex: 1 1 auto;
+  min-width: 130px;
+  padding: 10px 14px;
+  border: 0;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #5a2a44;
+  transition: background .15s;
+}
+.tab-btn.active { background: #fff; box-shadow: 0 2px 8px -4px rgba(0,0,0,.18); }
+.tab-panel { display: none; background: #fff; border-radius: 16px; padding: 24px; }
+.tab-panel.active { display: block; }
+
+.game-row {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  align-items: flex-start;
+}
+.canvas-pad {
+  background: #fff;
+  border: 2px dashed #d2b9cd;
+  border-radius: 12px;
+  touch-action: none;
+  cursor: crosshair;
+}
+.game-controls {
+  display: flex; flex-direction: column; gap: 10px;
+  min-width: 180px;
+}
+.ctrl-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  font-size: .9rem;
+}
+
+.click-stats {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin: 12px 0;
+}
+.click-stats > div {
+  background: #faf3f7;
+  border-radius: 10px;
+  padding: 10px 14px;
+  min-width: 110px;
+  text-align: center;
+  font-size: .85rem;
+  color: #5a2a44;
+}
+.click-stats b { display: block; font-size: 1.15rem; color: #c43b7c; margin-top: 2px; }
+
+.click-arena {
+  position: relative;
+  background: #faf3f7;
+  border-radius: 12px;
+  height: 360px;
+  overflow: hidden;
+  border: 2px dashed #d2b9cd;
+  margin-bottom: 12px;
+}
+.target {
+  position: absolute;
+  width: 46px; height: 46px;
+  background: radial-gradient(#d96aa3, #c43b7c);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px -2px rgba(196,59,124,.45);
+  transition: transform .08s;
+}
+.target:hover { transform: scale(1.08); }
+
+.react-box {
+  background: #c43b7c;
+  color: #fff;
+  border-radius: 14px;
+  padding: 60px 20px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 14px;
+  transition: background .1s;
+}
+.react-box.ready { background: #4caf6f; }
+.react-box.wait  { background: #f0a93b; }
+
+.prompt {
+  background: #faf3f7;
+  border-radius: 12px;
+  padding: 18px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  min-height: 60px;
+}
+.type-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1.5px solid #d2b9cd;
+  border-radius: 10px;
+  outline: none;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+.type-input:focus { border-color: #d96aa3; }
+
+/* ============ DISCLAIMER FOOTER ============ */
+.disclaimer-box {
+  background: #fff4d6;
+  border: 1.5px solid #f0c14b;
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-size: .92rem;
+}
+.disclaimer-box p { margin-bottom: 10px; }
+.disclaimer-box p:last-child { margin-bottom: 0; }
+
+.site-footer {
+  background: #3a1a2a;
+  color: #fde6f0;
+  padding: 30px 0;
+  text-align: center;
+}
+.site-footer p { margin: 4px 0; font-size: .9rem; }
+.site-footer a { color: #f4d1e3; }
+
+</style>
+</head>
+<body>
+
+<!-- ============== AGE GATE ============== -->
+<div id="ageGate" class="overlay">
+  <div class="gate-card">
+    <div class="gate-emoji">&#x270B;</div>
+    <h1>Switch Hands</h1>
+    <p class="gate-sub">Train your non-dominant hand. For curious right-handers who want to teach their left hand new tricks.</p>
+
+    <div class="warning-box">
+      <strong>&#x26A0;&#xFE0F; This site is for adults only (18+).</strong>
+      <p>By entering you confirm you are at least 18 years old, you have read the disclaimer below, and you accept that any consequences from following the exercises on this site are entirely your own responsibility.</p>
+    </div>
+
+    <details class="disclaimer-details">
+      <summary>Read the full legal disclaimer</summary>
+      <div class="disclaimer-text">
+        <p><strong>No medical advice.</strong> The content on this website is provided for educational and entertainment purposes only. It is not medical, psychological, neurological, or therapeutic advice and is not a substitute for a consultation with a qualified professional.</p>
+        <p><strong>You assume all risk.</strong> Practicing motor skills with your non-dominant hand may carry risks including, but not limited to: muscle strain or fatigue, joint pain, hand cramps, frustration, headaches, temporary clumsiness, dropped or damaged objects, and any indirect or consequential damages arising from such events. By using this site you accept the entire risk, including any cost of treatment or replacement.</p>
+        <p><strong>Do not switch under coercion.</strong> Forcing a child or any person to change their dominant hand against their will has been historically associated with negative psychological effects. Only train yourself, only voluntarily, and stop at any time.</p>
+        <p><strong>Stop if it hurts.</strong> If you feel pain, numbness, tingling, persistent cramping, or emotional distress, stop immediately and consult a qualified medical professional.</p>
+        <p><strong>Avoid risky activities.</strong> Do not use your untrained hand for tasks that could cause harm to yourself or others &mdash; for example: driving, operating machinery or power tools, handling knives or hot liquids, carrying infants, firearms, or any safety-critical activity.</p>
+        <p><strong>No warranty.</strong> All content is provided &ldquo;as is&rdquo; without warranty of any kind. The site owners and contributors disclaim all liability to the maximum extent permitted by applicable law.</p>
+        <p><strong>Age restriction.</strong> This site is intended for users aged 18 and over. If you are under 18, please leave.</p>
+      </div>
+    </details>
+
+    <label class="checkbox-row">
+      <input type="checkbox" id="agreeBox">
+      <span>I am 18+ and I accept the disclaimer and assume all risk.</span>
+    </label>
+
+    <div class="gate-buttons">
+      <button id="enterBtn" class="btn btn-primary" disabled>Enter the site</button>
+      <a href="https://www.google.com" class="btn btn-secondary">Leave</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MAIN SITE ============== -->
+<div id="site" hidden>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">&#x270B; Switch<span>Hands</span></a>
+    <nav>
+      <a href="#brain">Brain</a>
+      <a href="#proscons">Pros &amp; Cons</a>
+      <a href="#challenges">Challenges</a>
+      <a href="#games">Games</a>
+      <a href="#disclaimer">Legal</a>
+    </nav>
+  </div>
+</header>
+
+<section id="top" class="hero">
+  <div class="container">
+    <h1>Teach your left hand new tricks.</h1>
+    <p class="lead">A playful, science-backed training ground for right-handers who want to become more <em>ambidextrous</em> &mdash; or fully switch. Read the brain science, weigh the trade-offs, then try the daily challenges and mini-games.</p>
+    <div class="hero-cta">
+      <a href="#brain" class="btn btn-primary">Learn the science</a>
+      <a href="#games" class="btn btn-ghost">Skip to games</a>
+    </div>
+    <p class="hero-note">For adults only. You are responsible for your own training and safety.</p>
+  </div>
+</section>
+
+<!-- ============== BRAIN SCIENCE ============== -->
+<section id="brain" class="section">
+  <div class="container">
+    <h2>How the brain decides which hand you use</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <div class="card-icon">&#x1F9E0;</div>
+        <h3>Crossed wiring</h3>
+        <p>Your motor cortex controls the <strong>opposite</strong> side of your body. The <em>right hemisphere</em> drives your left hand, and the <em>left hemisphere</em> drives your right hand. This crossover is called <strong>contralateral motor control</strong>.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F517;</div>
+        <h3>The bridge between sides</h3>
+        <p>A thick band of ~200 million nerve fibers called the <strong>corpus callosum</strong> connects the two hemispheres. Training your non-dominant hand encourages cross-talk between sides as both hemispheres negotiate the new movement.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F331;</div>
+        <h3>Neuroplasticity</h3>
+        <p>The brain is plastic: practice rewires synapses, strengthens neural pathways, and expands the cortical &ldquo;map&rdquo; that represents the trained hand. This is why a violinist&rsquo;s left-hand fingers get more cortex than yours &mdash; and why your left hand can improve too.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F4DA;</div>
+        <h3>Why most people are right-handed</h3>
+        <p>About <strong>90%</strong> of humans are right-hand dominant. The exact cause is unknown, but a mix of <em>genes</em> (e.g. the PCSK6 and LRRTM1 gene regions), prenatal hormones, and culture all play a role. Hand preference appears as early as the second trimester in the womb.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F4AC;</div>
+        <h3>Hand &amp; language</h3>
+        <p>In roughly 95% of right-handers, the language centers (Broca&rsquo;s and Wernicke&rsquo;s areas) live in the <em>left</em> hemisphere &mdash; the same hemisphere that controls your dominant hand. The link is real but the cause is debated.</p>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">&#x1F3CB;&#xFE0F;</div>
+        <h3>It&rsquo;s motor learning</h3>
+        <p>Switching hands is essentially a motor-learning project. Expect three classic stages: <strong>cognitive</strong> (clumsy, slow, very conscious), <strong>associative</strong> (fewer errors, smoother), and <strong>autonomous</strong> (automatic). Most learners need months of consistent practice to reach stage three.</p>
+      </div>
+    </div>
+
+    <!-- Interactive brain diagram -->
+    <div class="brain-diagram">
+      <h3>Click a hemisphere</h3>
+      <svg viewBox="0 0 400 240" class="brain-svg" aria-label="Simplified brain diagram">
+        <defs>
+          <linearGradient id="leftHem" x1="0" x2="1">
+            <stop offset="0%" stop-color="#f7c1d9"/>
+            <stop offset="100%" stop-color="#d96aa3"/>
+          </linearGradient>
+          <linearGradient id="rightHem" x1="0" x2="1">
+            <stop offset="0%" stop-color="#a8d8ff"/>
+            <stop offset="100%" stop-color="#5fa9e8"/>
+          </linearGradient>
+        </defs>
+        <path id="hemL" d="M 200 30 C 110 30 60 90 60 150 C 60 200 110 220 200 220 Z" fill="url(#leftHem)" stroke="#5a2a44" stroke-width="2"/>
+        <path id="hemR" d="M 200 30 C 290 30 340 90 340 150 C 340 200 290 220 200 220 Z" fill="url(#rightHem)" stroke="#1f4a73" stroke-width="2"/>
+        <text x="125" y="155" text-anchor="middle" font-size="14" fill="#3a1a2a" font-weight="bold">LEFT</text>
+        <text x="125" y="172" text-anchor="middle" font-size="11" fill="#3a1a2a">controls RIGHT hand</text>
+        <text x="275" y="155" text-anchor="middle" font-size="14" fill="#0d2840" font-weight="bold">RIGHT</text>
+        <text x="275" y="172" text-anchor="middle" font-size="11" fill="#0d2840">controls LEFT hand</text>
+      </svg>
+      <div id="brainInfo" class="brain-info">Click a side of the brain above.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PROS AND CONS ============== -->
+<section id="proscons" class="section alt">
+  <div class="container">
+    <h2>Pros &amp; cons of training your non-dominant hand</h2>
+
+    <div class="pc-grid">
+      <div class="pc-col pros">
+        <h3>&#x2705; Potential benefits</h3>
+        <ul>
+          <li><strong>Greater independence.</strong> Useful backup if you injure your dominant hand.</li>
+          <li><strong>Improved fine motor control</strong> on the trained side over time.</li>
+          <li><strong>Cognitive challenge.</strong> Motor learning is great brain exercise and engages cross-hemisphere coordination.</li>
+          <li><strong>Sport &amp; music advantages.</strong> Ambidexterity helps in boxing, basketball, tennis, guitar, drums, etc.</li>
+          <li><strong>Better ergonomics.</strong> Switching tasks (mouse, phone, fork) can ease repetitive-strain pain.</li>
+          <li><strong>Fun &amp; novel.</strong> Forces you to slow down and pay attention &mdash; a form of active mindfulness.</li>
+        </ul>
+      </div>
+
+      <div class="pc-col cons">
+        <h3>&#x274C; Risks &amp; downsides</h3>
+        <ul>
+          <li><strong>Frustration &amp; slow progress.</strong> Tasks that used to be effortless become hard. Many people quit.</li>
+          <li><strong>Strain &amp; fatigue.</strong> Untrained muscles and tendons can ache or cramp.</li>
+          <li><strong>Drops &amp; spills.</strong> Plates, phones and cups can suffer. Use cheap objects while learning.</li>
+          <li><strong>Time cost.</strong> Realistic, fluent switching typically takes <em>months</em> of daily practice.</li>
+          <li><strong>Handwriting plateau.</strong> Many adults reach a &ldquo;legible but slow&rdquo; ceiling on their non-dominant side.</li>
+          <li><strong>Historical harm.</strong> Forcing a child to switch hands has been linked to stress, stuttering and emotional harm. Only train yourself, only voluntarily.</li>
+          <li><strong>No guaranteed IQ boost.</strong> The popular claim that switching hands &ldquo;makes you smarter&rdquo; is not well supported by evidence.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CHALLENGES ============== -->
+<section id="challenges" class="section">
+  <div class="container">
+    <h2>30-day challenge</h2>
+    <p class="section-lead">Tick off one task per day for a month. Progress is saved in your browser. <button id="resetChallenges" class="link-btn">Reset progress</button></p>
+
+    <div id="progressBar" class="progress">
+      <div id="progressFill" class="progress-fill"></div>
+      <span id="progressLabel" class="progress-label">0 / 30 complete</span>
+    </div>
+
+    <div id="challengeGrid" class="challenge-grid"></div>
+  </div>
+</section>
+
+<!-- ============== GAMES ============== -->
+<section id="games" class="section alt">
+  <div class="container">
+    <h2>Mini-games</h2>
+    <p class="section-lead">All games are designed to be played with your <strong>left hand only</strong>. Put your right hand behind your back &mdash; we&rsquo;re on the honor system.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="draw">&#x270F;&#xFE0F; Mirror Drawing</button>
+      <button class="tab-btn" data-tab="click">&#x1F3AF; Click Targets</button>
+      <button class="tab-btn" data-tab="react">&#x26A1; Reaction Time</button>
+      <button class="tab-btn" data-tab="type">&#x2328;&#xFE0F; Word Type</button>
+    </div>
+
+    <!-- DRAWING GAME -->
+    <div class="tab-panel active" data-panel="draw">
+      <h3>Mirror Drawing</h3>
+      <p>Try to trace the shape with your <strong>left hand</strong>. The canvas mirrors your movement &mdash; just like learning to write left-handed!</p>
+      <div class="game-row">
+        <canvas id="drawCanvas" width="500" height="320" class="canvas-pad"></canvas>
+        <div class="game-controls">
+          <label class="ctrl-row">
+            <input type="checkbox" id="mirrorToggle" checked> Mirror mode
+          </label>
+          <label class="ctrl-row">
+            <span>Brush</span>
+            <input type="range" id="brushSize" min="2" max="20" value="5">
+          </label>
+          <label class="ctrl-row">
+            <span>Color</span>
+            <input type="color" id="brushColor" value="#d96aa3">
+          </label>
+          <button id="clearCanvas" class="btn btn-secondary">Clear</button>
+          <button id="loadShape" class="btn btn-ghost">Show shape to trace</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLICK TARGETS -->
+    <div class="tab-panel" data-panel="click">
+      <h3>Click Targets &mdash; left hand only</h3>
+      <p>Click the dots as fast as you can. 20 dots. Your score &amp; best are saved.</p>
+      <div class="click-stats">
+        <div><span>Time</span><b id="clickTime">0.00s</b></div>
+        <div><span>Hit</span><b id="clickHit">0 / 20</b></div>
+        <div><span>Best</span><b id="clickBest">&mdash;</b></div>
+      </div>
+      <div class="click-arena" id="clickArena"></div>
+      <button id="startClick" class="btn btn-primary">Start</button>
+    </div>
+
+    <!-- REACTION TIME -->
+    <div class="tab-panel" data-panel="react">
+      <h3>Reaction time</h3>
+      <p>Click as soon as the box turns green. 5 trials, the average is your score.</p>
+      <div id="reactBox" class="react-box">Click to start</div>
+      <div class="click-stats">
+        <div><span>Last</span><b id="reactLast">&mdash;</b></div>
+        <div><span>Avg</span><b id="reactAvg">&mdash;</b></div>
+        <div><span>Best avg</span><b id="reactBest">&mdash;</b></div>
+      </div>
+    </div>
+
+    <!-- TYPE GAME -->
+    <div class="tab-panel" data-panel="type">
+      <h3>Left-hand word type</h3>
+      <p>Type the prompt below using only your left hand. We time you. The words are chosen from the <em>left side</em> of a QWERTY keyboard.</p>
+      <div class="prompt" id="typePrompt">&mdash;</div>
+      <input type="text" id="typeInput" class="type-input" placeholder="type here..." autocomplete="off">
+      <div class="click-stats">
+        <div><span>Time</span><b id="typeTime">0.00s</b></div>
+        <div><span>WPM</span><b id="typeWpm">&mdash;</b></div>
+        <div><span>Best WPM</span><b id="typeBest">&mdash;</b></div>
+      </div>
+      <button id="newPrompt" class="btn btn-secondary">New prompt</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============== DISCLAIMER FOOTER ============== -->
+<section id="disclaimer" class="section">
+  <div class="container">
+    <h2>Legal disclaimer</h2>
+    <div class="disclaimer-box">
+      <p><strong>Educational content only.</strong> Everything on this site is for general information and entertainment. It is not medical, psychological, neurological or therapeutic advice.</p>
+      <p><strong>You assume the entire risk.</strong> By using this site you accept that any consequence &mdash; physical, mental, financial, or otherwise &mdash; arising from following the exercises, games or challenges here is entirely your own responsibility. This includes injuries, strain, broken or dropped objects, lost time, frustration and emotional distress.</p>
+      <p><strong>Adults only.</strong> This site is intended for users 18 years of age or older.</p>
+      <p><strong>Stop if you feel pain.</strong> Numbness, tingling, persistent cramping, joint pain or emotional distress are signals to stop and, if needed, consult a qualified professional.</p>
+      <p><strong>Don&rsquo;t do dangerous things one-handed.</strong> Never use your untrained hand for safety-critical tasks (driving, machinery, knives, hot liquids, children, firearms, etc.).</p>
+      <p><strong>No warranty.</strong> The site is provided &ldquo;as is&rdquo; with no warranty of any kind. The site owners disclaim liability to the maximum extent permitted by law.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&#x270B; Switch Hands &middot; an educational toy site. Use responsibly.</p>
+    <p><a href="#top">Back to top</a></p>
+  </div>
+</footer>
+
+</div><!-- /#site -->
+
+<script>
+/* ============================================================
+   Switch Hands - app.js
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  /* ---------- AGE GATE ---------- */
+  var gate    = document.getElementById('ageGate');
+  var site    = document.getElementById('site');
+  var agree   = document.getElementById('agreeBox');
+  var enter   = document.getElementById('enterBtn');
+
+  if (localStorage.getItem('sh_accepted') === '1') {
+    showSite();
+  }
+
+  agree.addEventListener('change', function () {
+    enter.disabled = !agree.checked;
+  });
+  enter.addEventListener('click', function () {
+    if (!agree.checked) return;
+    localStorage.setItem('sh_accepted', '1');
+    showSite();
+  });
+
+  function showSite() {
+    gate.style.display = 'none';
+    site.hidden = false;
+    initBrainDiagram();
+    initChallenges();
+    initTabs();
+    initDrawing();
+    initClickGame();
+    initReactGame();
+    initTypeGame();
+  }
+
+  /* ---------- BRAIN DIAGRAM ---------- */
+  function initBrainDiagram() {
+    var info = document.getElementById('brainInfo');
+    var hemL = document.getElementById('hemL');
+    var hemR = document.getElementById('hemR');
+
+    var L_TEXT = 'Left hemisphere: controls your right hand, usually houses language (Broca’s & Wernicke’s areas), and tends to specialize in sequential, analytic processing. In ~95% of right-handers, this side is language-dominant.';
+    var R_TEXT = 'Right hemisphere: controls your left hand, specializes in spatial reasoning, face recognition, music perception and the &quot;big-picture&quot; gestalt of a scene. Training your left hand recruits this side’s motor cortex.';
+
+    function select(side) {
+      hemL.classList.remove('selected');
+      hemR.classList.remove('selected');
+      if (side === 'L') { hemL.classList.add('selected'); info.innerHTML = L_TEXT; }
+      else              { hemR.classList.add('selected'); info.innerHTML = R_TEXT; }
+    }
+    hemL.addEventListener('click', function () { select('L'); });
+    hemR.addEventListener('click', function () { select('R'); });
+  }
+
+  /* ---------- 30-DAY CHALLENGES ---------- */
+  var CHALLENGES = [
+    'Brush your teeth with your left hand',
+    'Eat one meal using only your left hand',
+    'Write your name 10 times with your left hand',
+    'Use the mouse with your left hand for 30 minutes',
+    'Drink coffee/tea left-handed all morning',
+    'Unlock your phone with your left thumb only',
+    'Open every door with your left hand today',
+    'Stir a pot for 2 minutes with your left hand',
+    'Comb / style your hair left-handed',
+    'Pour a glass of water with your left hand',
+    'Sign 3 documents with your left hand',
+    'Send 10 text messages using only your left thumb',
+    'Draw a self-portrait left-handed',
+    'Eat soup left-handed (over a sink — trust us)',
+    'Hold the steering wheel only with your left hand (parked!)',
+    'Tie your shoes left-hand-dominant',
+    'Use a fork left-handed for an entire dinner',
+    'Throw &amp; catch a soft ball 20 times left-handed',
+    'Cut soft fruit with a butter knife, left-handed',
+    'Play 10 minutes of any game with reversed controls',
+    'Apply moisturizer / lotion left-handed',
+    'Write a one-paragraph journal entry left-handed',
+    'Carry your bag on the left side all day',
+    'Take notes in a meeting left-handed',
+    'Use chopsticks left-handed (start with crayons)',
+    'Brush your hair / shave with left hand',
+    'Operate the TV remote with only your left thumb',
+    'Practice writing the alphabet left-handed, 3 times',
+    'Spend 1 hour browsing the web mouse-left',
+    'Final boss: write a short letter to yourself, left-handed.'
+  ];
+
+  function initChallenges() {
+    var grid  = document.getElementById('challengeGrid');
+    var fill  = document.getElementById('progressFill');
+    var label = document.getElementById('progressLabel');
+    var reset = document.getElementById('resetChallenges');
+
+    var saved = JSON.parse(localStorage.getItem('sh_challenges') || '[]');
+
+    function save() { localStorage.setItem('sh_challenges', JSON.stringify(saved)); }
+    function refresh() {
+      var done = saved.length;
+      fill.style.width = (done / CHALLENGES.length * 100) + '%';
+      label.textContent = done + ' / ' + CHALLENGES.length + ' complete';
+    }
+
+    grid.innerHTML = '';
+    CHALLENGES.forEach(function (txt, i) {
+      var div = document.createElement('label');
+      div.className = 'challenge';
+      var id = 'ch_' + i;
+      var checked = saved.indexOf(i) > -1;
+      if (checked) div.classList.add('done');
+      div.innerHTML = '<input type="checkbox" id="' + id + '"' + (checked ? ' checked' : '') + '>' +
+                      '<span class="ch-text"><span class="ch-day">Day ' + (i + 1) + '.</span>' + txt + '</span>';
+      var cb = div.querySelector('input');
+      cb.addEventListener('change', function () {
+        if (cb.checked) {
+          if (saved.indexOf(i) === -1) saved.push(i);
+          div.classList.add('done');
+        } else {
+          saved = saved.filter(function (n) { return n !== i; });
+          div.classList.remove('done');
+        }
+        save();
+        refresh();
+      });
+      grid.appendChild(div);
+    });
+    refresh();
+
+    reset.addEventListener('click', function () {
+      if (!confirm('Reset all 30 days of progress?')) return;
+      saved = [];
+      save();
+      initChallenges();
+    });
+  }
+
+  /* ---------- TABS ---------- */
+  function initTabs() {
+    var btns   = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (x) { x.classList.remove('active'); });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        b.classList.add('active');
+        document.querySelector('.tab-panel[data-panel="' + b.dataset.tab + '"]').classList.add('active');
+      });
+    });
+  }
+
+  /* ---------- DRAWING GAME ---------- */
+  function initDrawing() {
+    var c    = document.getElementById('drawCanvas');
+    var ctx  = c.getContext('2d');
+    var mirr = document.getElementById('mirrorToggle');
+    var size = document.getElementById('brushSize');
+    var col  = document.getElementById('brushColor');
+    var clr  = document.getElementById('clearCanvas');
+    var load = document.getElementById('loadShape');
+    var drawing = false;
+    var last = null;
+
+    function reset() {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, c.width, c.height);
+    }
+    reset();
+
+    function pt(e) {
+      var r = c.getBoundingClientRect();
+      var x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      var y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      x = x * (c.width / r.width);
+      y = y * (c.height / r.height);
+      if (mirr.checked) x = c.width - x;
+      return { x: x, y: y };
+    }
+    function start(e) { e.preventDefault(); drawing = true; last = pt(e); }
+    function move(e)  {
+      if (!drawing) return;
+      e.preventDefault();
+      var p = pt(e);
+      ctx.strokeStyle = col.value;
+      ctx.lineWidth   = +size.value;
+      ctx.lineCap     = 'round';
+      ctx.beginPath();
+      ctx.moveTo(last.x, last.y);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      last = p;
+    }
+    function end() { drawing = false; last = null; }
+
+    c.addEventListener('mousedown', start);
+    c.addEventListener('mousemove', move);
+    c.addEventListener('mouseup',   end);
+    c.addEventListener('mouseleave', end);
+    c.addEventListener('touchstart', start, { passive: false });
+    c.addEventListener('touchmove',  move,  { passive: false });
+    c.addEventListener('touchend',   end);
+
+    clr.addEventListener('click', reset);
+
+    load.addEventListener('click', function () {
+      reset();
+      ctx.strokeStyle = '#bbb';
+      ctx.lineWidth   = 3;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath();
+      ctx.moveTo(80, 260);
+      ctx.lineTo(250, 50);
+      ctx.lineTo(420, 260);
+      ctx.lineTo(80, 260);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(250, 170, 70, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#aaa';
+      ctx.font = '13px sans-serif';
+      ctx.fillText('Trace these shapes with your left hand!', 110, 30);
+    });
+  }
+
+  /* ---------- CLICK TARGETS ---------- */
+  function initClickGame() {
+    var arena    = document.getElementById('clickArena');
+    var startBtn = document.getElementById('startClick');
+    var elT      = document.getElementById('clickTime');
+    var elH      = document.getElementById('clickHit');
+    var elB      = document.getElementById('clickBest');
+
+    var TOTAL = 20;
+    var hit = 0;
+    var t0  = 0;
+    var ticker;
+    var running = false;
+
+    var best = parseFloat(localStorage.getItem('sh_clickBest') || '0');
+    if (best > 0) elB.textContent = best.toFixed(2) + 's';
+
+    function spawn() {
+      arena.innerHTML = '';
+      var d = document.createElement('div');
+      d.className = 'target';
+      var w = arena.clientWidth - 50;
+      var h = arena.clientHeight - 50;
+      d.style.left = Math.random() * w + 'px';
+      d.style.top  = Math.random() * h + 'px';
+      d.addEventListener('click', onHit);
+      d.addEventListener('touchstart', onHit);
+      arena.appendChild(d);
+    }
+    function onHit(e) {
+      e.preventDefault();
+      if (!running) return;
+      hit++;
+      elH.textContent = hit + ' / ' + TOTAL;
+      if (hit >= TOTAL) {
+        running = false;
+        clearInterval(ticker);
+        var t = (Date.now() - t0) / 1000;
+        elT.textContent = t.toFixed(2) + 's';
+        arena.innerHTML = '<div style="text-align:center;padding:40px;color:#5a2a44;"><h3>Done! ' + t.toFixed(2) + 's</h3><p>That’s with your left hand. Try to beat it tomorrow.</p></div>';
+        if (!best || t < best) {
+          best = t;
+          localStorage.setItem('sh_clickBest', t.toString());
+          elB.textContent = t.toFixed(2) + 's';
+        }
+        startBtn.textContent = 'Play again';
+      } else {
+        spawn();
+      }
+    }
+    startBtn.addEventListener('click', function () {
+      hit = 0;
+      running = true;
+      t0 = Date.now();
+      elH.textContent = '0 / ' + TOTAL;
+      startBtn.textContent = 'Running...';
+      clearInterval(ticker);
+      ticker = setInterval(function () {
+        elT.textContent = ((Date.now() - t0) / 1000).toFixed(2) + 's';
+      }, 50);
+      spawn();
+    });
+  }
+
+  /* ---------- REACTION TIME ---------- */
+  function initReactGame() {
+    var box  = document.getElementById('reactBox');
+    var elL  = document.getElementById('reactLast');
+    var elA  = document.getElementById('reactAvg');
+    var elB  = document.getElementById('reactBest');
+
+    var TRIALS = 5;
+    var trial  = 0;
+    var times  = [];
+    var t0     = 0;
+    var state  = 'idle';
+    var timer;
+
+    var best = parseFloat(localStorage.getItem('sh_reactBest') || '0');
+    if (best > 0) elB.textContent = best.toFixed(0) + ' ms';
+
+    function nextTrial() {
+      state = 'wait';
+      box.className = 'react-box wait';
+      box.textContent = 'Wait for green... (trial ' + (trial + 1) + '/' + TRIALS + ')';
+      var delay = 1000 + Math.random() * 2500;
+      timer = setTimeout(function () {
+        state = 'go';
+        box.className = 'react-box ready';
+        box.textContent = 'CLICK!';
+        t0 = Date.now();
+      }, delay);
+    }
+    function finish() {
+      var avg = times.reduce(function (s, n) { return s + n; }, 0) / times.length;
+      elA.textContent = avg.toFixed(0) + ' ms';
+      if (!best || avg < best) {
+        best = avg;
+        localStorage.setItem('sh_reactBest', avg.toString());
+        elB.textContent = avg.toFixed(0) + ' ms';
+      }
+      box.className = 'react-box';
+      box.textContent = 'Done! avg ' + avg.toFixed(0) + ' ms. Click to retry.';
+      state = 'idle';
+      trial = 0;
+      times = [];
+    }
+    box.addEventListener('click', function () {
+      if (state === 'idle') {
+        trial = 0; times = [];
+        nextTrial();
+      } else if (state === 'wait') {
+        clearTimeout(timer);
+        box.className = 'react-box';
+        box.textContent = 'Too early! Click to restart.';
+        state = 'idle';
+      } else if (state === 'go') {
+        var dt = Date.now() - t0;
+        times.push(dt);
+        elL.textContent = dt + ' ms';
+        trial++;
+        if (trial >= TRIALS) finish();
+        else nextTrial();
+      }
+    });
+  }
+
+  /* ---------- TYPE GAME ---------- */
+  function initTypeGame() {
+    // Words biased toward the LEFT side of QWERTY (q w e r t a s d f g z x c v b)
+    var WORDS = [
+      'craft', 'water', 'beast', 'staff', 'react', 'card', 'verb', 'tree', 'edge',
+      'great', 'badge', 'face', 'sweet', 'agave', 'scarf', 'verge', 'serve', 'badger',
+      'crab', 'absent', 'detect', 'gather', 'wager', 'feast', 'state', 'data', 'safe',
+      'trade', 'reefs', 'cabbage', 'beard', 'sage', 'vest', 'fade', 'savage', 'targets'
+    ];
+    var promptEl = document.getElementById('typePrompt');
+    var inp      = document.getElementById('typeInput');
+    var elT      = document.getElementById('typeTime');
+    var elW      = document.getElementById('typeWpm');
+    var elB      = document.getElementById('typeBest');
+    var newBtn   = document.getElementById('newPrompt');
+
+    var current = '';
+    var t0 = 0;
+    var started = false;
+
+    var best = parseFloat(localStorage.getItem('sh_typeBest') || '0');
+    if (best > 0) elB.textContent = best.toFixed(1) + ' wpm';
+
+    function newPrompt() {
+      var words = [];
+      for (var i = 0; i < 6; i++) {
+        words.push(WORDS[Math.floor(Math.random() * WORDS.length)]);
+      }
+      current = words.join(' ');
+      promptEl.textContent = current;
+      inp.value = '';
+      started  = false;
+      elT.textContent = '0.00s';
+      elW.textContent = '—';
+      inp.focus();
+    }
+    inp.addEventListener('input', function () {
+      if (!started) { started = true; t0 = Date.now(); }
+      if (inp.value === current) {
+        var t = (Date.now() - t0) / 1000;
+        elT.textContent = t.toFixed(2) + 's';
+        var wpm = (current.split(' ').length / t) * 60;
+        elW.textContent = wpm.toFixed(1) + ' wpm';
+        if (!best || wpm > best) {
+          best = wpm;
+          localStorage.setItem('sh_typeBest', wpm.toString());
+          elB.textContent = wpm.toFixed(1) + ' wpm';
+        }
+      } else {
+        elT.textContent = ((Date.now() - t0) / 1000).toFixed(2) + 's';
+      }
+    });
+    newBtn.addEventListener('click', newPrompt);
+    newPrompt();
+  }
+})();
+
+</script>
+</body>
+</html>
